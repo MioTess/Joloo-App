@@ -6,7 +6,7 @@ import GroupTest from "./src/Screens/GroupTest";
 import GroupTestScreen from "./src/Screens/GroupTestScreen";
 
 const Stack = createNativeStackNavigator();
-
+// Gantsetseg
 export default function App() {
   return (
     <NavigationContainer>

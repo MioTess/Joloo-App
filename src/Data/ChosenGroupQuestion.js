@@ -11,7 +11,7 @@ export default ChosenGroupQuestion = [
   },
   {
     asuult: "Ямар тэмдэг бэ ?",
-    hariult: ["Зогсох", "Хориглох", "Эргэх"],
+    hariult: ["Зогсох", "Хориглох", "Эргэх", "Hii"],
     zuwHariult: "Эргэх",
   },
 ];
