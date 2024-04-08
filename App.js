@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./src/Screens/HomeScreen";
 import GroupTest from "./src/Screens/GroupTest";
 import GroupTestScreen from "./src/Screens/GroupTestScreen";
+import RandomTest20 from "./src/Screens/RandomTest20";
 
 const Stack = createNativeStackNavigator();
 // fjdbkjvbksjbfvkjb
@@ -14,6 +15,7 @@ export default function App() {
         <Stack.Screen name="Горим сонгох" component={HomeScreen} />
         <Stack.Screen name="Бүлэг сонгох" component={GroupTestScreen} />
         <Stack.Screen name="Тест өгөх" component={GroupTest} />
+        <Stack.Screen name="Шалгалт эхлэх" component={RandomTest20} />
       </Stack.Navigator>
     </NavigationContainer>
   );

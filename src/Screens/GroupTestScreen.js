@@ -14,8 +14,10 @@ import GroupTest from "./GroupTest";
 function GroupTestScreen(props) {
   const FlatData = GroupTestDataExample;
   const [isChoose, setIsChoose] = useState(false);
-  const handleClick = () => {
+  const [bid, setBid] = useState(0);
+  const handleClick = (selid) => {
     setIsChoose(true);
+    setBid(selid);
   };
   const isChooseGroup = () => {
     return (
@@ -24,7 +26,8 @@ function GroupTestScreen(props) {
         renderItem={({ item, index }) => (
           <TouchableOpacity
             onPress={() => {
-              handleClick();
+              handleClick(item.id);
+              setBid(item.id)
             }}
             style={styles.itemContainer}
           >
@@ -42,7 +45,7 @@ function GroupTestScreen(props) {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
-        {isChoose == false ? isChooseGroup() : <GroupTest />}
+        {isChoose == false ? isChooseGroup() : <GroupTest bulegid={bid}/>}
       </View>
     </SafeAreaView>
   );

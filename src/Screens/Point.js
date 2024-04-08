@@ -7,7 +7,7 @@ import { Colors } from 'react-native/Libraries/NewAppScreen';
         return (
         <View>
             <Button 
-            title = "Илгээх"
+            title = "Илгээх" // хамгийн сүүлийн асуултан дээр очихоор "дараахын " оронд гарч ирэх "илгээх "дээр дарахад modal ажилна 
             onPress={() => setModalVisible(true)}
             color= "midnightblue"
             />

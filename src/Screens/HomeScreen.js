@@ -5,7 +5,12 @@ import { View, StyleSheet, SafeAreaView } from "react-native";
 function HomeScreen(props) {
   return (
     <SafeAreaView style={styles.container}>
-      <TypeButton title="Шалгалт эхлэх" />
+      <TypeButton
+        title="Шалгалт эхлэх"
+        onPress={() => {
+          props.navigation.navigate("Шалгалт эхлэх");
+        }}
+      />
       <TypeButton
         title="Бүлэг сонгох"
         onPress={() => {
