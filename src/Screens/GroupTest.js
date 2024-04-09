@@ -4,6 +4,7 @@ import ChosenGroupQuestion from "../Data/ChosenGroupQuestion";
 import GroupTestAnswers from "../Components/GroupTestAnswers";
 import axios from "axios";
 
+
 function GroupTest(props) {
   const data = ChosenGroupQuestion;
   const [duudsanAsuult, setDuudsanAsuult] = useState(0);
