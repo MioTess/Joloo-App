@@ -1,38 +1,82 @@
 import React, { useEffect, useState } from "react";
-import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import axios from "axios"; // Import axios
+import {
+  View,
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+  TouchableOpacity,
+} from "react-native";
+import axios from "axios";
 
 function GroupTestAnswers({
   data,
   duudsanAsuult,
-  zuwHariult,
   songoltHiisen,
+  setDuudsanAsuult,
   tugjee,
+  asuultSolih,
 }) {
-  const [hariultData, setHariultData] = useState(null);
+  const [hariultData, setHariultData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [zuwHariult, setZuwHariult] = useState("");
+  const [onoo, setOnoo] = useState(0);
 
   useEffect(() => {
-    fetchAnswers(data, duudsanAsuult); // Call fetchAnswers within useEffect
-  }, [data, duudsanAsuult]); // Dependency array to trigger useEffect on data or duudsanAsuult change
+    const fetchAnswers = async () => {
+      try {
+        const response = await axios.get(
+          `http://172.20.10.2:3000/hariult/asuult/${data[duudsanAsuult]?.asuult_id}`
+        );
+        setHariultData(response.data.data);
+        const correctAnswer = response.data.data.find(
+          (answer) => answer.is_right_choices === 1
+        );
+        if (correctAnswer) {
+          setZuwHariult(correctAnswer);
+        }
+        setLoading(false);
+      } catch (error) {
+        console.log("Error fetching answers:", error.message);
+        setLoading(false);
+      }
+    };
 
-  const fetchAnswers = async (data, duudsanAsuult) => {
-    try {
-      console.log(data);
-      const res = await axios.get(
-        `http://172.20.10.2:3000/hariult/asuult/7${data[duudsanAsuult]?.asuult_id}`
-      ); // Fix typo and URL
-      setHariultData(res.data.data);
-      console.log(res.data.data); // Removed "Hello" from console.log
-    } catch (error) {
-      console.log(error.message);
+    fetchAnswers();
+  }, [data, duudsanAsuult]);
+
+  const onooNemeh = (clickHariultID) => {
+    if (clickHariultID === zuwHariult.hariult_id) {
+      setOnoo(onoo + 1);
     }
   };
 
   return (
     <View style={styles.container}>
-      {/* Display hariultData or loading indicator */}
-      {hariultData ? <Text>{hariultData}</Text> : <Text>Loading...</Text>}
+      {loading ? (
+        <ActivityIndicator size="large" color="blue" />
+      ) : (
+        <>
+          {hariultData.map((answer) => (
+            <TouchableOpacity
+              onPress={() => {
+                asuultSolih();
+                onooNemeh(answer.hariult_id);
+              }}
+              key={answer.hariult_id}
+              style={styles.answerButton}
+            >
+              <Text style={styles.answerText}>{answer.hariult}</Text>
+            </TouchableOpacity>
+          ))}
+          {zuwHariult && (
+            <View style={styles.correctAnswer}>
+              <Text style={styles.correctAnswerText}>
+                Correct Answer: {zuwHariult.hariult} Total score : {onoo}
+              </Text>
+            </View>
+          )}
+        </>
+      )}
     </View>
   );
 }
@@ -48,7 +92,7 @@ const styles = StyleSheet.create({
     backgroundColor: "lightgray",
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: "lightgray", // Set border color to match background
+    borderColor: "lightgray",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
@@ -57,6 +101,15 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     color: "black",
+  },
+  correctAnswer: {
+    marginTop: 20,
+    alignItems: "center",
+  },
+  correctAnswerText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "green",
   },
 });
 

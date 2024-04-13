@@ -7,15 +7,18 @@ const RandomTest20 = (props) => {
   const [data, setData] = useState([]);
   const [duudsanAsuult, setDuudsanAsuult] = useState(0);
   const [songoltHiisen, setSongoltHiisen] = useState(null);
-  const [zuwHariult, setZuwHariult] = useState(null);
   const [tugjee, setTugjee] = useState(false);
-  const [onoo, setOnoo] = useState(0);
+
   const idBuleg = props.bulegid;
+
+  const asuultSolih = () => {
+    setDuudsanAsuult(duudsanAsuult + 1);
+  };
+
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-
-        const res = await axios.get("http://10.150.48.92:3000/asuult/random/7");
+        const res = await axios.get("http://172.20.10.2:3000/asuult/random/7");
 
         setData(res.data.data);
         console.log(res.data.data);
@@ -25,7 +28,6 @@ const RandomTest20 = (props) => {
     };
 
     fetchQuestions();
-
   }, []);
 
   return (
@@ -44,22 +46,21 @@ const RandomTest20 = (props) => {
         <Text style={{ color: "gray", fontSize: 20, opacity: 0.6 }}>
           / {data.length}
         </Text>
+      </View>
 
-      </View> 
-
-      <Text>
- style={{ fontSize: 22, marginTop: 10 }}
+      <Text style={{ fontSize: 22, marginTop: 10 }}>
         {data[duudsanAsuult]?.asuult}
-        {console.log(data[duudsanAsuult]?.asuult)}
+        {console.log("rendrer" + data[duudsanAsuult]?.asuult)}
       </Text>
+
       <GroupTestAnswers
         duudsanAsuult={duudsanAsuult}
         data={data}
-       // hariultShalgah={hariultShalgah}
-
-        zuwHariult={zuwHariult}
+        // hariultShalgah={hariultShalgah}
         songoltHiisen={songoltHiisen}
         tugjee={tugjee}
+        setDuudsanAsuult={setDuudsanAsuult}
+        asuultSolih={asuultSolih}
       />
     </SafeAreaView>
   );
