@@ -3,17 +3,20 @@ import { Button, Text, View, SafeAreaView } from "react-native";
 import axios from "axios";
 import GroupTestAnswers from "../Components/GroupTestAnswers";
 
-const RandomTest20 = () => {
+const RandomTest20 = (props) => {
   const [data, setData] = useState([]);
   const [duudsanAsuult, setDuudsanAsuult] = useState(0);
-
+  const [songoltHiisen, setSongoltHiisen] = useState(null);
+  const [zuwHariult, setZuwHariult] = useState(null);
+  const [tugjee, setTugjee] = useState(false);
+  const [onoo, setOnoo] = useState(0);
+  const idBuleg = props.bulegid;
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const res = await axios.get(
-          "http://10.150.43.202:3000/asuult/random/7"
-        );
+        const res = await axios.get("http://192.168.1.14:3000/asuult/random/7");
         setData(res.data.data);
+        console.log(res.data.data);
       } catch (error) {
         console.log(error.message);
       }
@@ -38,9 +41,10 @@ const RandomTest20 = () => {
         <Text style={{ color: "gray", fontSize: 20, opacity: 0.6 }}>
           / {data.length}
         </Text>
-      </View>
+      </View> 
       <Text style={{ fontSize: 22, marginTop: 10 }}>
         {data[duudsanAsuult]?.asuult}
+        {console.log(data[duudsanAsuult]?.asuult)}
       </Text>
       <GroupTestAnswers
         duudsanAsuult={duudsanAsuult}
