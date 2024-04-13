@@ -17,7 +17,7 @@ function GroupTest(props) {
     console.log(idBuleg);
     try {
       const res = await axios.get(
-        `http://10.150.43.202:3000/asuult/buleg/${idBuleg}`
+        `http://10.150.48.92:3000/asuult/buleg/${idBuleg}`
       );
       console.log(res.data);
     } catch (error) {
