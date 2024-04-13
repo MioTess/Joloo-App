@@ -1,71 +1,112 @@
 import React, { useState, useEffect } from "react";
-import { SafeAreaView, Text, View } from "react-native";
-import ChosenGroupQuestion from "../Data/ChosenGroupQuestion";
-import GroupTestAnswers from "../Components/GroupTestAnswers";
+import { TouchableOpacity, SafeAreaView, Text, View, StyleSheet } from "react-native";
 import axios from "axios";
-
-
+import TestingAnswers from "../Components/TestingAnswers";
 function GroupTest(props) {
-  const data = ChosenGroupQuestion;
+  const [data, setData] = useState([]);
   const [duudsanAsuult, setDuudsanAsuult] = useState(0);
   const [songoltHiisen, setSongoltHiisen] = useState(null);
-  const [zuwHariult, setZuwHariult] = useState(null);
-  const [tugjee, setTugjee] = useState(false);
-  const [onoo, setOnoo] = useState(0);
   const idBuleg = props.bulegid;
+  const [tugjee, setTugjee] = useState(false);
+  const asuultSolih = () => {
+    setDuudsanAsuult(duudsanAsuult + 1);
+  };
 
-  const demo = async () => {
-    console.log(idBuleg);
-    try {
-      const res = await axios.get(
-        `http://10.150.48.92:3000/asuult/buleg/${idBuleg}`
-      );
-      console.log(res.data);
-    } catch (error) {
-      console.log(error.message);
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      try {
+        const res = await axios.get(`http://192.168.1.14:3000/asuult/buleg/${idBuleg}`);
+        setData(res.data.data);
+      } catch (error) {
+        console.log("Error fetching questions:", error.message);
+      }
+    };
+
+    fetchQuestions();
+  }, [idBuleg]);
+
+  const handleNextClick = () => {
+    if (duudsanAsuult < data.length - 1) {
+      setDuudsanAsuult(duudsanAsuult + 1);
     }
   };
-  useEffect(() => {
-    demo();
-  }, []);
 
-  const hariultShalgah = (songolt) => {
-    let zuw_hariult = data[duudsanAsuult]["zuwHariult"];
-    setSongoltHiisen(songolt);
-    setZuwHariult(zuw_hariult);
-    setTugjee(true);
-    if (songoltHiisen == zuwHariult) {
-      setOnoo(onoo + 1);
+  const handlePrevClick = () => {
+    if (duudsanAsuult > 0) {
+      setDuudsanAsuult(duudsanAsuult - 1);
     }
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View style={{ flexDirection: "row", alignItems: "flex-end" }}>
-        <Text
-          style={{ color: "gray", fontSize: 20, opacity: 0.6, marginRight: 2 }}
-        >
-          {duudsanAsuult + 1}
+    <SafeAreaView style={styles.container}>
+      <View style={styles.questionFrame}>
+
+        <Text style={styles.questionNumber}>
+          {duudsanAsuult + 1} / {data.length}
         </Text>
-        <Text style={{ color: "gray", fontSize: 20, opacity: 0.6 }}>
-          / {data.length}
+        
+        <Text style={styles.questionText}>
+          {data[duudsanAsuult]?.asuult}
         </Text>
+
       </View>
 
-      <Text style={{ fontSize: 22, marginTop: 10 }}>
-        {data[duudsanAsuult]?.asuult}
-      </Text>
+      <View style={styles.buttonContainer}>
 
-      <GroupTestAnswers
+        <TouchableOpacity style={styles.button} onPress={handlePrevClick}>
+          <Text style={styles.buttonText}>Өмнөх</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.button} onPress={handleNextClick}>
+          <Text style={styles.buttonText}>Дараах</Text>
+        </TouchableOpacity>
+
+      </View>
+
+      <TestingAnswers
         duudsanAsuult={duudsanAsuult}
         data={data}
-       // hariultShalgah={hariultShalgah}
-        zuwHariult={zuwHariult}
         songoltHiisen={songoltHiisen}
         tugjee={tugjee}
+        setDuudsanAsuult={setDuudsanAsuult}
+        asuultSolih={asuultSolih}
       />
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  questionFrame: {
+    borderWidth: 1,
+    borderColor: "black",
+    padding: 10,
+    marginBottom: 20,
+  },
+  questionNumber: {
+    fontSize: 20,
+    marginBottom: 10,
+  },
+  questionText: {
+    fontSize: 22,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+  },
+  button: {
+    backgroundColor: "#841584",
+    padding: 10,
+    borderRadius: 8,
+    marginHorizontal: 5,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 18,
+  },
+});
 
 export default GroupTest;

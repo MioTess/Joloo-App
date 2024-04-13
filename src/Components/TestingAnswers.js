@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import axios from "axios";
 
-function GroupTestAnswers({
+function TestingAnswers({
   data,
   duudsanAsuult,
   songoltHiisen,
@@ -21,7 +21,7 @@ function GroupTestAnswers({
   const [zuwHariult, setZuwHariult] = useState("");
   const [onoo, setOnoo] = useState(0);
 
-  useEffect(() => {
+  useEffect(() => { 
     const fetchAnswers = async () => {
       try {
         const response = await axios.get(
@@ -113,4 +113,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default GroupTestAnswers;
+export default TestingAnswers;

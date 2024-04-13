@@ -20,7 +20,7 @@ function GroupTestScreen(props) {
     setBid(selid);
   };
   const isChooseGroup = () => {
-    return (
+    return ( 
       <FlatList
         data={FlatData}
         renderItem={({ item, index }) => (
