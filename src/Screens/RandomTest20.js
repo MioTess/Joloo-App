@@ -14,7 +14,9 @@ const RandomTest20 = (props) => {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const res = await axios.get("http://192.168.1.14:3000/asuult/random/7");
+
+        const res = await axios.get("http://10.150.48.92:3000/asuult/random/7");
+
         setData(res.data.data);
         console.log(res.data.data);
       } catch (error) {
@@ -23,6 +25,7 @@ const RandomTest20 = (props) => {
     };
 
     fetchQuestions();
+
   }, []);
 
   return (
@@ -41,15 +44,19 @@ const RandomTest20 = (props) => {
         <Text style={{ color: "gray", fontSize: 20, opacity: 0.6 }}>
           / {data.length}
         </Text>
+
       </View> 
-      <Text style={{ fontSize: 22, marginTop: 10 }}>
+
+      <Text>
+ style={{ fontSize: 22, marginTop: 10 }}
         {data[duudsanAsuult]?.asuult}
         {console.log(data[duudsanAsuult]?.asuult)}
       </Text>
       <GroupTestAnswers
         duudsanAsuult={duudsanAsuult}
         data={data}
-        hariultShalgah={hariultShalgah}
+       // hariultShalgah={hariultShalgah}
+
         zuwHariult={zuwHariult}
         songoltHiisen={songoltHiisen}
         tugjee={tugjee}

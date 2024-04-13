@@ -1,62 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import axios from "axios"; // Import axios
 
 function GroupTestAnswers({
   data,
   duudsanAsuult,
-  hariultShalgah,
   zuwHariult,
   songoltHiisen,
   tugjee,
 }) {
+  const [hariultData, setHariultData] = useState(null);
+
+  useEffect(() => {
+    fetchAnswers(data, duudsanAsuult); // Call fetchAnswers within useEffect
+  }, [data, duudsanAsuult]); // Dependency array to trigger useEffect on data or duudsanAsuult change
+
+  const fetchAnswers = async (data, duudsanAsuult) => {
+    try {
+      console.log(data);
+      const res = await axios.get(
+        `http://172.20.10.2:3000/hariult/asuult/7${data[duudsanAsuult]?.asuult_id}`
+      ); // Fix typo and URL
+      setHariultData(res.data.data);
+      console.log(res.data.data); // Removed "Hello" from console.log
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <View style={styles.container}>
-      {data[duudsanAsuult]?.hariult.map((hariult, index) => (
-        <TouchableOpacity
-          onPress={() => hariultShalgah(hariult)}
-          disabled={tugjee}
-          key={index}
-          style={styles.answerButton}
-          activeOpacity={0.7} // Add a slight opacity effect when pressed
-        >
-          <Text style={styles.answerText}>{hariult}</Text>
-
-          {hariult == zuwHariult ? (
-            <View
-              style={{
-                width: 20,
-                height: 20,
-                borderRadius: 30 / 2,
-                backgroundColor: "green",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <MaterialCommunityIcons
-                name="check"
-                style={{ color: "white", fontSize: 20 }}
-              />
-            </View>
-          ) : hariult == songoltHiisen ? (
-            <View
-              style={{
-                width: 20,
-                height: 20,
-                borderRadius: 30 / 2,
-                backgroundColor: "red",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <MaterialCommunityIcons
-                name="close"
-                style={{ color: "white", fontSize: 20 }}
-              />
-            </View>
-          ) : null}
-        </TouchableOpacity>
-      ))}
+      {/* Display hariultData or loading indicator */}
+      {hariultData ? <Text>{hariultData}</Text> : <Text>Loading...</Text>}
     </View>
   );
 }
