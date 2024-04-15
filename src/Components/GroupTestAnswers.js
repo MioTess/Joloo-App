@@ -25,7 +25,7 @@ function GroupTestAnswers({
     const fetchAnswers = async () => {
       try {
         const response = await axios.get(
-          `http://192.168.1.14:3000/hariult/asuult/${data[duudsanAsuult]?.asuult_id}`
+          `http://172.20.10.2:3000/hariult/asuult/${data[duudsanAsuult]?.asuult_id}`
         );
         setHariultData(response.data.data);
         const correctAnswer = response.data.data.find(

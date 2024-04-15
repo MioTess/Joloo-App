@@ -20,14 +20,14 @@ function GroupTestScreen(props) {
     setBid(selid);
   };
   const isChooseGroup = () => {
-    return ( 
+    return (
       <FlatList
         data={FlatData}
         renderItem={({ item, index }) => (
           <TouchableOpacity
             onPress={() => {
               handleClick(item.id);
-              setBid(item.id)
+              setBid(item.id);
             }}
             style={styles.itemContainer}
           >
@@ -45,7 +45,11 @@ function GroupTestScreen(props) {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
-        {isChoose == false ? isChooseGroup() : <GroupTest bulegid={bid}/>}
+        {isChoose == false ? (
+          isChooseGroup()
+        ) : (
+          <GroupTest bulegid={bid} navigate={props.navigation.navigate} />
+        )}
       </View>
     </SafeAreaView>
   );

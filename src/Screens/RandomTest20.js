@@ -18,7 +18,7 @@ const RandomTest20 = (props) => {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const res = await axios.get("http://192.168.1.14:3000/asuult/random/7");
+        const res = await axios.get("http://172.20.10.2:3000/asuult/random/7");
 
         setData(res.data.data);
         console.log(res.data.data);
