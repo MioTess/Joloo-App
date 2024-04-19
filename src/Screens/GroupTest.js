@@ -35,7 +35,7 @@ function GroupTest(props) {
   }, [idBuleg]);
 
   useEffect(() => {
-    if (duudsanAsuult > 19) {
+    if (duudsanAsuult > 9) {
       setViewColor("transparent");
       setTextColor("transparent");
     }
@@ -66,7 +66,7 @@ function GroupTest(props) {
         data={data}
         tugjee={tugjee}
         setDuudsanAsuult={setDuudsanAsuult}
-        asuultSolih={asuultSolih}
+        asuultSolih={asuultSolih} 
         hariultTugjsen={hariultTugjsen}
         setHariultTugjsen={setHariultTugjsen}
         handleNextClick={handleNextClick}

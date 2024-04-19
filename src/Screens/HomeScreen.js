@@ -17,6 +17,12 @@ function HomeScreen(props) {
           props.navigation.navigate("Бүлэг сонгох");
         }}
       />
+      <TypeButton
+        title="Image"
+        onPress={() => {
+          props.navigation.navigate("Зураг");
+        }}
+      />
     </SafeAreaView>
   );
 }

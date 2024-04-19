@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import TypeButton from "../Components/TypeButton";
+
 import {
   View,
   Text,
@@ -8,6 +9,7 @@ import {
   TouchableOpacity,
   Modal,
   Button,
+  Image,
 } from "react-native";
 import axios from "axios";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -36,9 +38,14 @@ function TestingAnswers({
   useEffect(() => {
     const fetchAnswers = async () => {
       try {
+        console.log(img);
         const response = await axios.get(
           `http://172.20.10.2:3000/hariult/asuult/${data[duudsanAsuult]?.asuult_id}`
         );
+        const questions = response.data.data.map((question) => ({
+          ...question,
+          imageUri: `http://172.20.10.2:3000/hariult/asuult/${data[duudsanAsuult]?.image}`,
+        }));
         setHariultData(response.data.data);
         const correctAnswer = response.data.data.find(
           (answer) => answer.is_right_choices === 1
@@ -160,7 +167,7 @@ function TestingAnswers({
 
   return (
     <View style={styles.container}>
-      {duudsanAsuult > 19 ? ilgeehTowch() : test()}
+      {duudsanAsuult > 9 ? ilgeehTowch() : test()}
 
       <Modal
         visible={isModalVisible}
@@ -196,7 +203,7 @@ function TestingAnswers({
                 marginVertical: 20,
               }}
             >
-              <Text>/ 20</Text>
+              <Text>{onoo}/ 20</Text>
             </View>
           </View>
           <TypeButton

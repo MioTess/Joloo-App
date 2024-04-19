@@ -5,6 +5,7 @@ import {
   StyleSheet,
   ActivityIndicator,
   TouchableOpacity,
+  Modal,
 } from "react-native";
 import axios from "axios";
 
@@ -15,11 +16,15 @@ function GroupTestAnswers({
   setDuudsanAsuult,
   tugjee,
   asuultSolih,
+  setSongolt,
+  setTextColor,
+  setViewColor,
 }) {
   const [hariultData, setHariultData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [zuwHariult, setZuwHariult] = useState("");
   const [onoo, setOnoo] = useState(0);
+  const [isModalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     const fetchAnswers = async () => {
@@ -50,33 +55,83 @@ function GroupTestAnswers({
     }
   };
 
+  const ilgeehTowch = () => {
+    return (
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => {
+          setModalVisible(true);
+        }}
+      >
+        <Text style={styles.buttonText}>Илгээх</Text>
+      </TouchableOpacity>
+    );
+  };
+
+  const test = () => {
+    return loading ? (
+      <ActivityIndicator size="large" color="blue" />
+    ) : (
+      <>
+        {hariultData.map((answer) => (
+          <TouchableOpacity
+            onPress={() => {
+              onooNemeh(answer.hariult_id);
+              asuultSolih();
+            }}
+            key={answer.hariult_id}
+            style={styles.answerButton}
+          >
+            <Text style={styles.answerText}>{answer.hariult}</Text>
+          </TouchableOpacity>
+        ))}
+      </>
+    );
+  };
+
   return (
     <View style={styles.container}>
-      {loading ? (
-        <ActivityIndicator size="large" color="blue" />
-      ) : (
-        <>
-          {hariultData.map((answer) => (
-            <TouchableOpacity
-              onPress={() => {
-                asuultSolih();
-                onooNemeh(answer.hariult_id);
+      {duudsanAsuult >= 19 ? ilgeehTowch() : test()}
+
+      <Modal
+        visible={isModalVisible}
+        onRequestClose={() => setModalVisible(false)}
+        animationType="slide"
+      >
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "lightblue",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <View
+            style={{
+              backgroundColor: "white",
+              width: "90%",
+              borderRadius: "20",
+              padding: "20",
+              alignItems: "center",
+            }}
+          >
+            <Text style={{ fontSize: 30, fontWeight: "bold" }}>
+              {" "}
+              {onoo > 18 ? "Тэнцлээ" : "Тэнцсэнгүй"}{" "}
+            </Text>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "flex-start",
+                alignItems: "center",
+                marginVertical: 20,
               }}
-              key={answer.hariult_id}
-              style={styles.answerButton}
             >
-              <Text style={styles.answerText}>{answer.hariult}</Text>
-            </TouchableOpacity>
-          ))}
-          {zuwHariult && (
-            <View style={styles.correctAnswer}>
-              <Text style={styles.correctAnswerText}>
-                Correct Answer: {zuwHariult.hariult} Total score : {onoo}
-              </Text>
+              <Text> {onoo}/ 20</Text>
             </View>
-          )}
-        </>
-      )}
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -110,6 +165,18 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     color: "green",
+  },
+  button: {
+    backgroundColor: "#841584",
+    padding: 10,
+    borderRadius: 8,
+    marginHorizontal: 5,
+    marginTop: 15,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 18,
+    textAlign: "center",
   },
 });
 
