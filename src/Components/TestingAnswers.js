@@ -38,14 +38,9 @@ function TestingAnswers({
   useEffect(() => {
     const fetchAnswers = async () => {
       try {
-        console.log(img);
         const response = await axios.get(
-          `http://172.20.10.2:3000/hariult/asuult/${data[duudsanAsuult]?.asuult_id}`
+          `http://192.168.1.80:3000/hariult/asuult/${data[duudsanAsuult]?.asuult_id}`
         );
-        const questions = response.data.data.map((question) => ({
-          ...question,
-          imageUri: `http://172.20.10.2:3000/hariult/asuult/${data[duudsanAsuult]?.image}`,
-        }));
         setHariultData(response.data.data);
         const correctAnswer = response.data.data.find(
           (answer) => answer.is_right_choices === 1

@@ -5,6 +5,8 @@ import {
   Text,
   View,
   StyleSheet,
+  Image,
+  ScrollView,
 } from "react-native";
 import axios from "axios";
 import TestingAnswers from "../Components/TestingAnswers";
@@ -15,6 +17,8 @@ function GroupTest(props) {
   const [hariultTugjsen, setHariultTugjsen] = useState(false);
   const [ViewColor, setViewColor] = useState("black"); // Default to white
   const [TextColor, setTextColor] = useState("black"); // Default to white
+  const [filterImage, setFilterImage] = useState("s1a8.jpg");
+  const [allImages, setAllImages] = useState({});
   const idBuleg = props.bulegid;
   const [tugjee, setTugjee] = useState(false);
   const [songolt, setSongolt] = useState(null);
@@ -23,7 +27,7 @@ function GroupTest(props) {
     const fetchQuestions = async () => {
       try {
         const res = await axios.get(
-          `http://172.20.10.2:3000/asuult/buleg/${idBuleg}`
+          `http://192.168.1.80:3000/asuult/buleg/${idBuleg}`
         );
         setData(res.data.data);
       } catch (error) {
@@ -46,50 +50,91 @@ function GroupTest(props) {
   };
 
   const handleNextClick = () => {
-    if (duudsanAsuult <= data.length) {
+    if (duudsanAsuult < data.length - 1) {
       setDuudsanAsuult(duudsanAsuult + 1);
       setHariultTugjsen(false);
       setSongolt(null);
     }
   };
 
+  useEffect(() => {
+    const importAll = (r) => {
+      let images = {};
+      r.keys().map((item, index) => {
+        images[item.replace("./", "")] = r(item);
+        setAllImages(images);
+      });
+      return images;
+    };
+
+    const images = importAll(
+      require.context("../Images/image", false, /\.(png|jpe?g|svg)$/)
+    );
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
-      <View style={[styles.questionFrame, { borderColor: ViewColor }]}>
+      <ScrollView
+        contentContainerStyle={styles.scrollViewContainer}
+        showsVerticalScrollIndicator={false}
+      >
         <Text style={[styles.questionNumber, { color: TextColor }]}>
           {duudsanAsuult + 1} / {data.length}
         </Text>
+        <View style={styles.imageContainer}>
+          {Object.keys(allImages).map((imageName, index) => {
+            if (imageName === data[duudsanAsuult]?.image + ".jpg") {
+              console.log(data[duudsanAsuult]?.image + ".jpg");
+              return (
+                <Image
+                  key={index}
+                  source={allImages[data[duudsanAsuult]?.image + ".jpg"]}
+                  style={styles.image}
+                />
+              );
+            }
+          })}
+        </View>
         <Text style={styles.questionText}>{data[duudsanAsuult]?.asuult}</Text>
-      </View>
-      <TestingAnswers
-        duudsanAsuult={duudsanAsuult}
-        data={data}
-        tugjee={tugjee}
-        setDuudsanAsuult={setDuudsanAsuult}
-        asuultSolih={asuultSolih} 
-        hariultTugjsen={hariultTugjsen}
-        setHariultTugjsen={setHariultTugjsen}
-        handleNextClick={handleNextClick}
-        songolt={songolt}
-        setSongolt={setSongolt}
-        setTextColor={setTextColor}
-        navigate={props.navigate}
-      />
+
+        <TestingAnswers
+          duudsanAsuult={duudsanAsuult}
+          data={data}
+          tugjee={tugjee}
+          setDuudsanAsuult={setDuudsanAsuult}
+          asuultSolih={asuultSolih}
+          hariultTugjsen={hariultTugjsen}
+          setHariultTugjsen={setHariultTugjsen}
+          handleNextClick={handleNextClick}
+          songolt={songolt}
+          setSongolt={setSongolt}
+          setTextColor={setTextColor}
+          navigate={props.navigate}
+        />
+      </ScrollView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  scrollViewContainer: {
+    flexGrow: 1,
     justifyContent: "center",
     alignItems: "center",
   },
-  questionFrame: {
-    borderWidth: 1,
-    borderColor: "black",
-    padding: 10,
-    marginBottom: 20,
+  container: {
+    flex: 1,
+  },
+  imageContainer: {
+    marginTop: 20,
+    marginBottom: 10,
+    borderRadius: 10,
+    overflow: "hidden",
+  },
+  image: {
+    width: 600,
+    height: 400,
+    resizeMode: "contain",
   },
   questionNumber: {
     fontSize: 20,
@@ -97,6 +142,8 @@ const styles = StyleSheet.create({
   },
   questionText: {
     fontSize: 22,
+    textAlign: "center",
+    marginBottom: 20,
   },
 });
 

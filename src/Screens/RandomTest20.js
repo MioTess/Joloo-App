@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   StyleSheet,
   Image,
+  ScrollView,
 } from "react-native";
 import axios from "axios";
 import GroupTestAnswers from "../Components/GroupTestAnswers";
@@ -36,10 +37,10 @@ const RandomTest20 = (props) => {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const res = await axios.get("http://172.20.10.2:3000/asuult/random/7");
+        const res = await axios.get("http://192.168.1.80:3000/asuult/random/7");
 
         setData(res.data.data);
-        console.log(res.data.data);
+        // console.log(res.data.data);
       } catch (error) {
         console.log(error.message);
       }
@@ -66,54 +67,83 @@ const RandomTest20 = (props) => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View style={[styles.view, { backgroundColor: { ViewColor } }]}>
-        <Text style={[styles.secondText, { color: TextColor }]}>
-          {duudsanAsuult + 1}
+      <ScrollView
+        contentContainerStyle={styles.scrollViewContainer}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={[styles.view, { backgroundColor: { ViewColor } }]}>
+          <Text style={[styles.secondText, { color: TextColor }]}>
+            {duudsanAsuult + 1}
+          </Text>
+          <Text style={[styles.text, { color: TextColor }]}>
+            / {data.length}
+          </Text>
+        </View>
+
+        {/* IMAGE LOAD FROM DATA */}
+
+        <View style={styles.imageContainer}>
+          {Object.keys(allImages).map((imageName, index) => {
+            if (imageName == data[duudsanAsuult]?.image + ".jpg") {
+              console.log(
+                "allImageName : " +
+                  imageName +
+                  "filterImageName : " +
+                  filterImage
+              );
+              console.log();
+              return (
+                <Image
+                  key={index}
+                  source={allImages[data[duudsanAsuult]?.image + ".jpg"]}
+                  style={styles.image}
+                />
+              );
+            }
+          })}
+        </View>
+
+        <Text style={[styles.asuult, { color: TextColor }]}>
+          {data[duudsanAsuult]?.asuult}
         </Text>
-        <Text style={[styles.text, { color: TextColor }]}>/ {data.length}</Text>
-      </View>
 
-      {/* IMAGE LOAD FROM DATA */}
-
-      <View>
-        {Object.keys(allImages).map((imageName, index) => {
-          if (imageName == filterImage) {
-            console.log(
-              "allImageName : " + imageName + "filterImageName : " + filterImage
-            );
-            return <Image key={index} source={allImages[imageName]} />;
-          }
-        })}
-      </View>
-
-      <Text style={[styles.asuult, { color: TextColor }]}>
-        {data[duudsanAsuult]?.asuult}
-      </Text>
-
-      <GroupTestAnswers
-        duudsanAsuult={duudsanAsuult}
-        data={data}
-        // hariultShalgah={hariultShalgah}
-        songoltHiisen={songoltHiisen}
-        tugjee={tugjee}
-        setDuudsanAsuult={setDuudsanAsuult}
-        asuultSolih={asuultSolih}
-        setSongolt={setSongolt}
-        setTextColor={setTextColor}
-        setViewColor={setViewColor}
-      />
+        <GroupTestAnswers
+          duudsanAsuult={duudsanAsuult}
+          data={data}
+          // hariultShalgah={hariultShalgah}
+          songoltHiisen={songoltHiisen}
+          tugjee={tugjee}
+          setDuudsanAsuult={setDuudsanAsuult}
+          asuultSolih={asuultSolih}
+          setSongolt={setSongolt}
+          setTextColor={setTextColor}
+          setViewColor={setViewColor}
+        />
+      </ScrollView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  scrollViewContainer: {
+    flexGrow: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   view: { flexDirection: "row", alignItems: "flex-end" },
   text: {
     color: "gray",
     fontSize: 20,
     opacity: 0.6,
   },
-  asuult: { fontSize: 22, marginTop: 10 },
+  imageContainer: {
+    marginTop: 20,
+    marginBottom: 10,
+    borderRadius: 10,
+    overflow: "hidden",
+  },
+
+  asuult: { fontSize: 16, marginTop: 10 },
   secondText: {
     color: "gray",
     fontSize: 20,
