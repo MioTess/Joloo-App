@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import axios from "axios";
 import GroupTestAnswers from "../Components/GroupTestAnswers";
+import url from "../Data/url";
 
 const RandomTest20 = (props) => {
   const [data, setData] = useState([]);
@@ -22,6 +23,7 @@ const RandomTest20 = (props) => {
   const [allImages, setAllImages] = useState({});
   const [songolt, setSongolt] = useState(null);
   const idBuleg = props.bulegid;
+  const [internetPro, setInternetPro] = useState(url);
 
   useEffect(() => {
     if (duudsanAsuult >= 19) {
@@ -37,8 +39,8 @@ const RandomTest20 = (props) => {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const res = await axios.get("http://10.150.43.202:3000/asuult/random/7");
-
+        console.log(internetPro);
+        const res = await axios.get(`http://${internetPro}/asuult/random/7`);
         setData(res.data.data);
         // console.log(res.data.data);
       } catch (error) {
@@ -118,6 +120,8 @@ const RandomTest20 = (props) => {
           setSongolt={setSongolt}
           setTextColor={setTextColor}
           setViewColor={setViewColor}
+          internetPro={internetPro}
+          navigation={props.navigation}
         />
       </ScrollView>
     </SafeAreaView>

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import TypeButton from "../Components/TypeButton";
 import { View, StyleSheet, SafeAreaView } from "react-native";
 
 function HomeScreen(props) {
+  const [internetPro, setInternetPro] = useState("10.150.48.92");
   return (
     <SafeAreaView style={styles.container}>
       <TypeButton
@@ -17,7 +18,6 @@ function HomeScreen(props) {
           props.navigation.navigate("Бүлэг сонгох");
         }}
       />
-     
     </SafeAreaView>
   );
 }

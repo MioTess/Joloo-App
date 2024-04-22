@@ -25,20 +25,26 @@ function TestingAnswers({
   songolt,
   setSongolt,
   setTextColor,
-  navigate 
-  
+  navigate,
+  internetPro,
+
 }) {
   const [hariultData, setHariultData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [zuwHariult, setZuwHariult] = useState("");
   const [zuwHariultEseh, setZuwHariultEseh] = useState(null);
   const [isModalVisible, setModalVisible] = useState(false);
+  const [mNavigate, setNavigate] = useState(false);
   const [onoo, setOnoo] = useState(0);
+  const navigateBack = () => {
+    navigate.goBack();
+  };
   useEffect(() => {
     const fetchAnswers = async () => {
       try {
         const response = await axios.get(
-          `http://10.150.43.202:3000/hariult/asuult/${data[duudsanAsuult]?.asuult_id}`
+          `http://${internetPro}/hariult/asuult/${data[duudsanAsuult]?.asuult_id}`
+
         );
         setHariultData(response.data.data);
         const correctAnswer = response.data.data.find(
@@ -203,6 +209,7 @@ function TestingAnswers({
         
         </View>
       </Modal>
+      {mNavigate == true ? navigateBack() : null}
     </View>
   );
 }
