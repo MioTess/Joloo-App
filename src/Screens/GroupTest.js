@@ -27,7 +27,7 @@ function GroupTest(props) {
     const fetchQuestions = async () => {
       try {
         const res = await axios.get(
-          `http://192.168.1.80:3000/asuult/buleg/${idBuleg}`
+          `http://${props.internetPro}/asuult/buleg/${idBuleg}`
         );
         setData(res.data.data);
       } catch (error) {
@@ -110,6 +110,7 @@ function GroupTest(props) {
           setSongolt={setSongolt}
           setTextColor={setTextColor}
           navigate={props.navigate}
+          internetPro={props.internetPro}
         />
       </ScrollView>
     </SafeAreaView>

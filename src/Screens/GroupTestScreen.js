@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import {
   View,
-  Text, 
+  Text,
   SafeAreaView,
   StyleSheet,
   FlatList,
@@ -10,11 +10,13 @@ import {
 } from "react-native";
 import GroupTestDataExample from "../Data/GroupTestDataExample";
 import GroupTest from "./GroupTest";
+import url from "../Data/url";
 
 function GroupTestScreen(props) {
   const FlatData = GroupTestDataExample;
   const [isChoose, setIsChoose] = useState(false);
   const [bid, setBid] = useState(0);
+  const [internetPro, setInternetPro] = useState(url);
   const handleClick = (selid) => {
     setIsChoose(true);
     setBid(selid);
@@ -48,7 +50,12 @@ function GroupTestScreen(props) {
         {isChoose == false ? (
           isChooseGroup()
         ) : (
-          <GroupTest bulegid={bid} navigate={props.navigation.navigate} />
+          <GroupTest
+            bulegid={bid}
+            navigate={props.navigation}
+            internetPro={internetPro}
+            
+          />
         )}
       </View>
     </SafeAreaView>
