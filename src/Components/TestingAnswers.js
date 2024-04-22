@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import TypeButton from "../Components/TypeButton";
 
 import {
   View,
@@ -8,8 +7,7 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   Modal,
-  Button,
-  Image,
+  
 } from "react-native";
 import axios from "axios";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -27,7 +25,8 @@ function TestingAnswers({
   songolt,
   setSongolt,
   setTextColor,
-  navigate,
+  navigate 
+  
 }) {
   const [hariultData, setHariultData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -39,7 +38,7 @@ function TestingAnswers({
     const fetchAnswers = async () => {
       try {
         const response = await axios.get(
-          `http://192.168.1.80:3000/hariult/asuult/${data[duudsanAsuult]?.asuult_id}`
+          `http://10.150.43.202:3000/hariult/asuult/${data[duudsanAsuult]?.asuult_id}`
         );
         setHariultData(response.data.data);
         const correctAnswer = response.data.data.find(
@@ -201,12 +200,7 @@ function TestingAnswers({
               <Text>{onoo}/ 20</Text>
             </View>
           </View>
-          <TypeButton
-            title="Дахин эхлэх"
-            onPress={() => {
-              navigate("Бүлэг сонгох");
-            }}
-          />
+        
         </View>
       </Modal>
     </View>

@@ -18,6 +18,7 @@ export default function App() {
         <Stack.Screen name="Тест өгөх" component={GroupTest} />
         <Stack.Screen name="Шалгалт эхлэх" component={RandomTest20} />
         <Stack.Screen name="Зураг" component={ImgTst} />
+        
       </Stack.Navigator>
     </NavigationContainer>
   );
