@@ -181,18 +181,19 @@ const styles = StyleSheet.create({
   answerButton: {
     paddingVertical: 12,
     marginVertical: 5,
-    backgroundColor: "lightgray",
-    borderRadius: 8,
-    borderWidth: 1,
+    backgroundColor: "#D4AC0D",
+    borderRadius: 50,
+    borderWidth: 0.1,
     borderColor: "lightgray",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+    padding: 25,
   },
   answerText: {
     fontSize: 13,
     fontWeight: "bold",
-    color: "black",
+    color: "#2C3E50",
   },
   correctAnswer: {
     marginTop: 20,

@@ -68,91 +68,139 @@ const RandomTest20 = (props) => {
   }, []);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView
+      style={{ flex: 1, flexDirection: "column", backgroundColor: "#2C3E50" }}
+    >
+      <View style={styles.header}>
+        <View style={styles.asuultiinTooView}>
+          <Text style={[styles.secondText, { color: TextColor }]}>
+            {duudsanAsuult + 1}
+          </Text>
+          <Text style={[styles.asuultiinTooText, { color: TextColor }]}>
+            / {data.length}
+          </Text>
+        </View>
+        <View style={styles.asuultView}>
+          <ScrollView>
+            <Text style={styles.asuult}>{data[duudsanAsuult]?.asuult}</Text>
+          </ScrollView>
+        </View>
+      </View>
+
+      {/* IMAGE LOAD FROM DATA */}
+
+      <View style={styles.imageContainer}>
+        {Object.keys(allImages).map((imageName, index) => {
+          if (imageName == data[duudsanAsuult]?.image + ".jpg") {
+            console.log(
+              "allImageName : " + imageName + "filterImageName : " + filterImage
+            );
+            console.log();
+            return (
+              <Image
+                key={index}
+                source={allImages[data[duudsanAsuult]?.image + ".jpg"]}
+                style={styles.image}
+              />
+            );
+          }
+        })}
+      </View>
+
       <ScrollView
         contentContainerStyle={styles.scrollViewContainer}
         showsVerticalScrollIndicator={false}
       >
-        <View style={[styles.view, { backgroundColor: { ViewColor } }]}>
-          <Text style={[styles.secondText, { color: TextColor }]}>
-            {duudsanAsuult + 1}
-          </Text>
-          <Text style={[styles.text, { color: TextColor }]}>
-            / {data.length}
-          </Text>
+        <View style={styles.asuultOutside}>
+          <View style={styles.asuultiinHariult}>
+            <GroupTestAnswers
+              duudsanAsuult={duudsanAsuult}
+              data={data}
+              // hariultShalgah={hariultShalgah}
+              songoltHiisen={songoltHiisen}
+              tugjee={tugjee}
+              setDuudsanAsuult={setDuudsanAsuult}
+              asuultSolih={asuultSolih}
+              setSongolt={setSongolt}
+              setTextColor={setTextColor}
+              setViewColor={setViewColor}
+              internetPro={internetPro}
+              navigation={props.navigation}
+            />
+          </View>
         </View>
-
-        {/* IMAGE LOAD FROM DATA */}
-
-        <View style={styles.imageContainer}>
-          {Object.keys(allImages).map((imageName, index) => {
-            if (imageName == data[duudsanAsuult]?.image + ".jpg") {
-              console.log(
-                "allImageName : " +
-                  imageName +
-                  "filterImageName : " +
-                  filterImage
-              );
-              console.log();
-              return (
-                <Image
-                  key={index}
-                  source={allImages[data[duudsanAsuult]?.image + ".jpg"]}
-                  style={styles.image}
-                />
-              );
-            }
-          })}
-        </View>
-
-        <Text style={[styles.asuult, { color: TextColor }]}>
-          {data[duudsanAsuult]?.asuult}
-        </Text>
-
-        <GroupTestAnswers
-          duudsanAsuult={duudsanAsuult}
-          data={data}
-          // hariultShalgah={hariultShalgah}
-          songoltHiisen={songoltHiisen}
-          tugjee={tugjee}
-          setDuudsanAsuult={setDuudsanAsuult}
-          asuultSolih={asuultSolih}
-          setSongolt={setSongolt}
-          setTextColor={setTextColor}
-          setViewColor={setViewColor}
-          internetPro={internetPro}
-          navigation={props.navigation}
-        />
       </ScrollView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  scrollViewContainer: {
-    flexGrow: 1,
-    justifyContent: "center",
-    alignItems: "center",
+  header: {
+    height: "25%",
+    backgroundColor: "#F4D03F",
+    flexDirection: "column",
   },
-  view: { flexDirection: "row", alignItems: "flex-end" },
-  text: {
+  asuultiinTooView: {
+    flexDirection: "row",
+    margin: 8,
+  },
+  asuultiinTooText: {
     color: "gray",
     fontSize: 20,
     opacity: 0.6,
   },
+  asuult: {
+    flex: 1,
+    fontSize: 19,
+    marginTop: 10,
+    marginBottom: 10,
+    color: "#2C3E50",
+  },
+  asuultView: { alignItems: "center", padding: 20, flex: 1, marginBottom: 15 },
+
   imageContainer: {
-    marginTop: 20,
+    height: "25%",
+    marginTop: 15,
     marginBottom: 10,
     borderRadius: 10,
     overflow: "hidden",
+    shadowColor: "#273746",
+    shadowOffset: { width: 20, height: 20 },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    elevation: 6,
+    borderColor: "#F4D03F",
+    borderWidth: 0.8,
   },
-
-  asuult: { fontSize: 16, marginTop: 10 },
   secondText: {
     color: "gray",
     fontSize: 20,
     opacity: 0.6,
     marginRight: 2,
+  },
+  asuultOutside: {
+    flex: 2,
+    width: "90%",
+    marginTop: 20,
+  },
+  asuultiinHariult: {
+    marginTop: 2,
+    borderBlockColor: "black",
+    borderWidth: 0.1,
+    borderRadius: 50,
+    shadowColor: "black",
+    shadowOffset: { width: 15, height: 25 },
+    shadowOpacity: 0.4,
+    shadowRadius: 6,
+    elevation: 1,
+    width: "100%",
+    padding: 15,
+    backgroundColor: "#273746",
+  },
+  scrollViewContainer: {
+    flexGrow: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 export default RandomTest20;

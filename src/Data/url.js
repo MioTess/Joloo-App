@@ -1,1 +1,1 @@
-export default url = `10.150.48.92:3000`;
+export default url = `10.150.43.202:3000`;

@@ -7,11 +7,9 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   Modal,
-  
 } from "react-native";
 import axios from "axios";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-
 function TestingAnswers({
   data,
   duudsanAsuult,
@@ -27,7 +25,6 @@ function TestingAnswers({
   setTextColor,
   navigate,
   internetPro,
-
 }) {
   const [hariultData, setHariultData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -44,7 +41,6 @@ function TestingAnswers({
       try {
         const response = await axios.get(
           `http://${internetPro}/hariult/asuult/${data[duudsanAsuult]?.asuult_id}`
-
         );
         setHariultData(response.data.data);
         const correctAnswer = response.data.data.find(
@@ -206,7 +202,6 @@ function TestingAnswers({
               <Text>{onoo}/ 10</Text>
             </View>
           </View>
-        
         </View>
       </Modal>
       {mNavigate == true ? navigateBack() : null}
@@ -222,13 +217,14 @@ const styles = StyleSheet.create({
   answerButton: {
     paddingVertical: 12,
     marginVertical: 5,
-    backgroundColor: "lightgray",
-    borderRadius: 8,
-    borderWidth: 1,
+    backgroundColor: "#D4AC0D",
+    borderRadius: 50,
+    borderWidth: 0.1,
     borderColor: "lightgray",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+    padding: 25,
   },
   answerText: {
     fontSize: 16,

@@ -28,7 +28,6 @@ function GroupTest(props) {
       try {
         const res = await axios.get(
           `http://${props.internetPro}/asuult/buleg/${idBuleg}`
-
         );
         setData(res.data.data);
       } catch (error) {
@@ -74,70 +73,127 @@ function GroupTest(props) {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={{ flex: 1, flexDirection: "column" }}>
+      <View style={styles.header}>
+        <View style={styles.asuultiinTooView}>
+          <Text style={[styles.asuultiinTooText, { color: TextColor }]}>
+            {duudsanAsuult + 1} / {data.length}
+          </Text>
+        </View>
+        <View style={styles.asuultView}>
+          <ScrollView>
+            <Text style={styles.asuult}>{data[duudsanAsuult]?.asuult}</Text>
+          </ScrollView>
+        </View>
+      </View>
+
+      <View style={styles.imageContainer}>
+        {Object.keys(allImages).map((imageName, index) => {
+          if (imageName === data[duudsanAsuult]?.image + ".jpg") {
+            console.log(data[duudsanAsuult]?.image + ".jpg");
+            return (
+              <Image
+                key={index}
+                source={allImages[data[duudsanAsuult]?.image + ".jpg"]}
+                style={styles.image}
+              />
+            );
+          }
+        })}
+      </View>
+
       <ScrollView
         contentContainerStyle={styles.scrollViewContainer}
         showsVerticalScrollIndicator={false}
       >
-        <Text style={[styles.questionNumber, { color: TextColor }]}>
-          {duudsanAsuult + 1} / {data.length}
-        </Text>
-        <View style={styles.imageContainer}>
-          {Object.keys(allImages).map((imageName, index) => {
-            if (imageName === data[duudsanAsuult]?.image + ".jpg") {
-              console.log(data[duudsanAsuult]?.image + ".jpg");
-              return (
-                <Image
-                  key={index}
-                  source={allImages[data[duudsanAsuult]?.image + ".jpg"]}
-                  style={styles.image}
-                />
-              );
-            }
-          })}
+        <View style={styles.asuultOutside}>
+          <View style={styles.asuultiinHariult}>
+            <TestingAnswers
+              duudsanAsuult={duudsanAsuult}
+              data={data}
+              tugjee={tugjee}
+              setDuudsanAsuult={setDuudsanAsuult}
+              asuultSolih={asuultSolih}
+              hariultTugjsen={hariultTugjsen}
+              setHariultTugjsen={setHariultTugjsen}
+              handleNextClick={handleNextClick}
+              songolt={songolt}
+              setSongolt={setSongolt}
+              setTextColor={setTextColor}
+              navigate={props.navigate}
+              internetPro={props.internetPro}
+            />
+          </View>
         </View>
-        <Text style={styles.questionText}>{data[duudsanAsuult]?.asuult}</Text>
-
-        <TestingAnswers
-          duudsanAsuult={duudsanAsuult}
-          data={data}
-          tugjee={tugjee}
-          setDuudsanAsuult={setDuudsanAsuult}
-          asuultSolih={asuultSolih}
-          hariultTugjsen={hariultTugjsen}
-          setHariultTugjsen={setHariultTugjsen}
-          handleNextClick={handleNextClick}
-          songolt={songolt}
-          setSongolt={setSongolt}
-          setTextColor={setTextColor}
-          navigate={props.navigate}
-          internetPro={props.internetPro}
-        />
       </ScrollView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  header: {
+    height: "25%",
+    backgroundColor: "#F4D03F",
+    flexDirection: "column",
+  },
+  asuultiinTooView: {
+    flexDirection: "row",
+    margin: 8,
+  },
+  asuultiinTooText: {
+    color: "gray",
+    fontSize: 20,
+    opacity: 0.6,
+  },
+  asuultView: { alignItems: "center", padding: 20, flex: 1, marginBottom: 15 },
+  asuult: {
+    flex: 1,
+    fontSize: 19,
+    marginTop: 10,
+    marginBottom: 10,
+    color: "#2C3E50",
+  },
+  imageContainer: {
+    height: "25%",
+    marginTop: 15,
+    marginBottom: 10,
+    borderRadius: 10,
+    overflow: "hidden",
+    shadowColor: "#273746",
+    shadowOffset: { width: 20, height: 20 },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    elevation: 6,
+    borderColor: "#F4D03F",
+    borderWidth: 0.8,
+  },
+
+  asuultOutside: {
+    flex: 2,
+    width: "90%",
+    marginTop: 20,
+  },
+  asuultiinHariult: {
+    marginTop: 2,
+    borderBlockColor: "black",
+    borderWidth: 0.1,
+    borderRadius: 50,
+    shadowColor: "black",
+    shadowOffset: { width: 15, height: 25 },
+    shadowOpacity: 0.4,
+    shadowRadius: 6,
+    elevation: 1,
+    width: "100%",
+    padding: 15,
+    backgroundColor: "#273746",
+  },
+  //
   scrollViewContainer: {
     flexGrow: 1,
     justifyContent: "center",
     alignItems: "center",
   },
-  container: {
-    flex: 1,
-  },
-  imageContainer: {
-    marginTop: 20,
-    marginBottom: 10,
-    borderRadius: 10,
-    overflow: "hidden",
-  },
-  image: {
-    width: 600,
-    height: 400,
-    resizeMode: "contain",
-  },
+
   questionNumber: {
     fontSize: 20,
     marginBottom: 10,

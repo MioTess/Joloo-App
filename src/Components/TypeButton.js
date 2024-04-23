@@ -11,7 +11,7 @@ function TypeButton({ title, onPress }) {
 
 const styles = StyleSheet.create({
   btn: {
-    backgroundColor: "#36B6DE",
+    backgroundColor: "#F4D03F",
     borderRadius: 30,
     justifyContent: "center",
     alignItems: "center",
@@ -20,20 +20,20 @@ const styles = StyleSheet.create({
     margin: 10,
     marginHorizontal: 20,
     marginBottom: 15,
-    shadowColor: "#000",
+    shadowColor: "blue",
     padding: 15,
     shadowOffset: {
-      width: 0,
+      width: 2,
       height: 4,
     },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
+    shadowOpacity: 0.2,
+    shadowRadius: 10.65,
     elevation: 6,
   },
   btnText: {
     fontSize: 15,
     fontWeight: "bold",
-    color: "#FFFFFF",
+    color: "#2C3E50",
     textTransform: "uppercase",
   },
 });

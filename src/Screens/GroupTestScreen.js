@@ -45,16 +45,16 @@ function GroupTestScreen(props) {
     );
   };
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <View style={styles.container}>
         {isChoose == false ? (
           isChooseGroup()
         ) : (
           <GroupTest
+            style={{ flex: 1 }}
             bulegid={bid}
             navigate={props.navigation}
             internetPro={internetPro}
-            
           />
         )}
       </View>
@@ -67,12 +67,13 @@ export default GroupTestScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f0f0f0",
+    backgroundColor: "#2C3E50",
     paddingHorizontal: 16,
     paddingTop: 20,
   },
   itemContainer: {
-    backgroundColor: "#fff",
+    flex: 1,
+    backgroundColor: "#F4D03F",
     borderRadius: 8,
     marginBottom: 12,
     paddingHorizontal: 16,
