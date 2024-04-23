@@ -193,7 +193,7 @@ function TestingAnswers({
           >
             <Text style={{ fontSize: 30, fontWeight: "bold" }}>
               {" "}
-              {onoo > 18 ? "Тэнцлээ" : "Тэнцсэнгүй"}{" "}
+              {onoo > 9 ? "Тэнцлээ" : "Тэнцсэнгүй"}{" "}
             </Text>
             <View
               style={{
@@ -203,7 +203,7 @@ function TestingAnswers({
                 marginVertical: 20,
               }}
             >
-              <Text>{onoo}/ 20</Text>
+              <Text>{onoo}/ 10</Text>
             </View>
           </View>
         
