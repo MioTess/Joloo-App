@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
   asuultView: { alignItems: "center", padding: 20, flex: 1, marginBottom: 15 },
 
   imageContainer: {
-    height: "25%",
+    height: 200, // Specify a fixed height
     marginTop: 15,
     marginBottom: 10,
     borderRadius: 10,
@@ -172,6 +172,12 @@ const styles = StyleSheet.create({
     borderColor: "#F4D03F",
     borderWidth: 0.8,
   },
+  image: {
+    flex: 1,
+    width: null,
+    height: null,
+    resizeMode: 'cover',
+  }, 
   secondText: {
     color: "gray",
     fontSize: 20,

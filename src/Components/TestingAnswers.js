@@ -241,11 +241,16 @@ const styles = StyleSheet.create({
     color: "green",
   },
   button: {
-    backgroundColor: "#841584",
-    padding: 10,
+    backgroundColor: "#6b8e23",
     borderRadius: 8,
     marginHorizontal: 5,
     marginTop: 15,
+    borderRadius: 50,
+    borderWidth: 0.1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 10,
   },
   buttonText: {
     color: "white",

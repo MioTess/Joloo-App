@@ -130,18 +130,23 @@ function GroupTestAnswers({
         <View
           style={{
             flex: 1,
-            backgroundColor: "lightblue",
+            backgroundColor: "#2C3E50",
             alignItems: "center",
             justifyContent: "center",
           }}
         >
           <View
             style={{
-              backgroundColor: "white",
+              backgroundColor: "#F4D03F",
               width: "90%",
               borderRadius: 20,
               padding: 20,
               alignItems: "center",
+              shadowColor: "brown",
+              shadowOffset: { width: 20, height: 20 },
+              shadowOpacity: 0.2,
+              shadowRadius: 9,
+              elevation: 6,
             }}
           >
             <Text style={{ fontSize: 30, fontWeight: "bold" }}>
@@ -155,17 +160,18 @@ function GroupTestAnswers({
                 marginVertical: 20,
               }}
             >
-              <Button
-                title="Back"
+              
+              <Text> {state.onoo}/ 20</Text>
+            </View>
+          </View>
+          <Button
+                title="Буцах" style={styles.buttonBack}
                 onPress={() => {
                   resetState();
                   setModalVisible(false);
                   setNavigate(true);
                 }}
               />
-              <Text> {state.onoo}/ 20</Text>
-            </View>
-          </View>
         </View>
       </Modal>
       {mNavigate == true ? navigateBack() : null}
@@ -205,17 +211,24 @@ const styles = StyleSheet.create({
     color: "green",
   },
   button: {
-    backgroundColor: "#841584",
-    padding: 10,
-    borderRadius: 8,
+    backgroundColor: "#D4AC0D",
+
     marginHorizontal: 5,
     marginTop: 15,
+    borderRadius: 50,
+    borderWidth: 0.1,
+    borderColor: "lightgray",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 25,
   },
   buttonText: {
     color: "white",
     fontSize: 18,
     textAlign: "center",
   },
+ 
 });
 
 export default GroupTestAnswers;
