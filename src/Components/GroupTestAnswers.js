@@ -90,6 +90,7 @@ function GroupTestAnswers({
           setModalVisible(true);
         }}
       >
+        {console.log(duudsanAsuult)}
         <Text style={styles.buttonText}>Илгээх</Text>
       </TouchableOpacity>
     );
@@ -109,6 +110,7 @@ function GroupTestAnswers({
             key={answer.hariult_id}
             style={styles.answerButton}
           >
+            {console.log(duudsanAsuult)}
             <Text style={styles.answerText}>{answer.hariult}</Text>
           </TouchableOpacity>
         ))}
@@ -118,6 +120,7 @@ function GroupTestAnswers({
 
   return (
     <View style={styles.container}>
+      
       {duudsanAsuult >= 19 ? ilgeehTowch() : test()}
 
       <Modal
@@ -160,18 +163,30 @@ function GroupTestAnswers({
                 marginVertical: 20,
               }}
             >
-              
-              <Text> {state.onoo}/ 20</Text>
+              <Text  style={{ fontSize: 30, fontWeight: "bold", color: "red" }}> {state.onoo} / 20</Text>
             </View>
           </View>
-          <Button
-                title="Буцах" style={styles.buttonBack}
-                onPress={() => {
-                  resetState();
-                  setModalVisible(false);
-                  setNavigate(true);
-                }}
-              />
+          <TouchableOpacity
+          style = {{
+            backgroundColor: "#D4AC0D",
+            borderRadius: 8,
+            marginHorizontal: 5,
+            marginTop: 15,
+            borderRadius: 50,
+            borderWidth: 0.1,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: 15,
+          }}
+              onPress={() => {
+                resetState();
+                setModalVisible(false);
+                setNavigate(true);
+              }}
+            >
+              <Text style={{ color: "black", fontSize: 15, fontWeight : "bold" }}>Дахин эхлэх</Text>
+            </TouchableOpacity>
         </View>
       </Modal>
       {mNavigate == true ? navigateBack() : null}
@@ -211,7 +226,7 @@ const styles = StyleSheet.create({
     color: "green",
   },
   button: {
-    backgroundColor: "#D4AC0D",
+    backgroundColor: "#6b8e23",
 
     marginHorizontal: 5,
     marginTop: 15,
@@ -228,7 +243,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "center",
   },
- 
 });
 
 export default GroupTestAnswers;

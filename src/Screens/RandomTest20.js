@@ -24,9 +24,11 @@ const RandomTest20 = (props) => {
   const [songolt, setSongolt] = useState(null);
   const idBuleg = props.bulegid;
   const [internetPro, setInternetPro] = useState(url);
+  const [haruulahAsuult, setHaruulahAsuult] = useState(null);
+  const [undsenTruns, setUndsenTruns] = useState()
 
   useEffect(() => {
-    if (duudsanAsuult >= 19) {
+    if (duudsanAsuult == 20) {
       setViewColor("transparent");
       setTextColor("transparent");
     }
@@ -176,8 +178,8 @@ const styles = StyleSheet.create({
     flex: 1,
     width: null,
     height: null,
-    resizeMode: 'cover',
-  }, 
+    resizeMode: "cover",
+  },
   secondText: {
     color: "gray",
     fontSize: 20,

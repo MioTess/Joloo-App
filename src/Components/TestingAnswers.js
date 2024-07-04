@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   Modal,
+  Button,
 } from "react-native";
 import axios from "axios";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -33,6 +34,8 @@ function TestingAnswers({
   const [isModalVisible, setModalVisible] = useState(false);
   const [mNavigate, setNavigate] = useState(false);
   const [onoo, setOnoo] = useState(0);
+  const [state, setState] = useState(initialState);
+
   const navigateBack = () => {
     navigate.goBack();
   };
@@ -72,7 +75,16 @@ function TestingAnswers({
       </Text>
     </View>;
   };
-
+  const initialState = {
+    hariultData: [],
+    loading: true,
+    zuwHariult: "",
+    onoo: 0,
+    isModalVisible: false,
+  };
+  const resetState = () => {
+    setState(initialState);
+  };
   const buttonSee = () => {
     return (
       <View style={styles.buttonContainer}>
@@ -163,7 +175,7 @@ function TestingAnswers({
 
   return (
     <View style={styles.container}>
-      {duudsanAsuult > 9 ? ilgeehTowch() : test()}
+      {duudsanAsuult >= 9 ? ilgeehTowch() : test()}
 
       <Modal
         visible={isModalVisible}
@@ -173,18 +185,23 @@ function TestingAnswers({
         <View
           style={{
             flex: 1,
-            backgroundColor: "lightblue",
+            backgroundColor: "#2C3E50",
             alignItems: "center",
             justifyContent: "center",
           }}
         >
           <View
             style={{
-              backgroundColor: "white",
+              backgroundColor: "#F4D03F",
               width: "90%",
-              borderRadius: "20",
-              padding: "20",
+              borderRadius: 20,
+              padding: 20,
               alignItems: "center",
+              shadowColor: "brown",
+              shadowOffset: { width: 20, height: 20 },
+              shadowOpacity: 0.2,
+              shadowRadius: 9,
+              elevation: 6,
             }}
           >
             <Text style={{ fontSize: 30, fontWeight: "bold" }}>
@@ -199,9 +216,35 @@ function TestingAnswers({
                 marginVertical: 20,
               }}
             >
-              <Text>{onoo}/ 10</Text>
+              <Text style={{ fontSize: 30, fontWeight: "bold", color: "red" }}>
+                {" "}
+                {onoo} / 10
+              </Text>
             </View>
+            
           </View>
+          <TouchableOpacity
+          style = {{
+            backgroundColor: "#D4AC0D",
+            borderRadius: 8,
+            marginHorizontal: 5,
+            marginTop: 15,
+            borderRadius: 50,
+            borderWidth: 0.1,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: 15,
+            
+          }}
+              onPress={() => {
+                resetState();
+                setModalVisible(false);
+                setNavigate(true);
+              }}
+            >
+              <Text style={{ color: "black", fontSize: 15, fontWeight : "bold" }}>Дахин эхлэх</Text>
+            </TouchableOpacity>
         </View>
       </Modal>
       {mNavigate == true ? navigateBack() : null}
@@ -220,7 +263,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#D4AC0D",
     borderRadius: 50,
     borderWidth: 0.1,
-    borderColor: "lightgray",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",

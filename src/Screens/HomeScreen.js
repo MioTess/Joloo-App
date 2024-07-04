@@ -37,14 +37,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#2C3E50",
   },
   textStyle: {
-    fontSize: 36,
+    fontSize: 40,
     marginTop: 25,
-    shadowColor: "#17202A",
+    shadowColor: "pink",
     shadowOffset: { width: 20, height: 20 },
     shadowOpacity: 0.6,
     shadowRadius: 15,
     elevation: 6,
-    color: '#17202A'
+    color: 'white'
   },
   imageContainer: {
     flex: 1,
