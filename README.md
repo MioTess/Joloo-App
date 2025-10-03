@@ -1,1 +1,1 @@
-expo CLI aa shinechilj suulgaarai gj heleerei bolrogoos
+expo CLI aa shinechileh
